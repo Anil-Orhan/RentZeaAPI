@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -63,6 +64,12 @@ namespace Business.Concrete
         {
             _ICarDal.Update(car);
             Console.WriteLine("{0} Car Updated with EF!", car.CarID);
+        }
+
+        public List<CarDetailDto> GetByCarDetails()
+        {
+
+            return _ICarDal.GetByCarDetail();
         }
     }
 }

@@ -42,11 +42,13 @@ namespace ConsoleUI
                 Description = "Test1",
                 ModelYear = "2010"
             };
-            Brand brand1 = new Brand {BrandName = "BMW"};
-            Brand brand2 = new Brand { BrandName = "AUDI" };
-            Brand brand3 = new Brand { BrandName = "FORD" };
-            Brand brand4 = new Brand { BrandName = "WOLKSVAGEN" };
-            Brand brand5 = new Brand { BrandName = "OPEL" };
+            //Brand brand1 = new Brand {BrandName = "BMW"};
+            //Brand brand2 = new Brand { BrandName = "AUDI" };
+            //Brand brand3 = new Brand { BrandName = "FORD" };
+            //Brand brand4 = new Brand { BrandName = "WOLKSVAGEN" };
+            //Brand brand5 = new Brand { BrandName = "OPEL" };
+
+
 
             //brandManager.Add(brand1);
             //brandManager.Add(brand2);
@@ -54,10 +56,11 @@ namespace ConsoleUI
             //brandManager.Add(brand4);
             //brandManager.Add(brand5);
 
-            //foreach (var item in carManager.GetAll())
-            //{
-            //    Console.WriteLine("ID : {0} , Model Year : {1}, Daily Price : {2}",item.CarID,item.ModelYear,item.DailyPrice);
-            //}
+            foreach (var item in carManager.GetByCarDetails())
+            {
+                Console.WriteLine("ID: {0} , Model Year : {1} , Brand : {2} , Color : {3} , Price : {4} ",item.CarID,item.ModelYear,
+                    item.BrandName,item.ColorName,item.DailyPrice);
+            }
 
 
 
