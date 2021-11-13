@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Core.Utilities.Results;
+using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
 using DataAccess.Abstract;
 
@@ -17,32 +19,35 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
-        public void Add(Color entity)
+        public IResult Add(Color entity)
         {
             _colorDal.Add(entity);
             Console.WriteLine("{0} Color is Added with EF!", entity.ColorID);
+            return new SuccessResult();
         }
 
-        public void Delete(Color entity)
+        public IDataResult<Color> Delete(Color entity)
         {
             _colorDal.Delete(entity);
             Console.WriteLine("{0} Brand is Deleted with EF!", entity.ColorID);
+            return new SuccessDataResult<Color>();
         }
 
-        public void Update(Color entity)
+        public IResult Update(Color entity)
         {
             _colorDal.Update(entity);
             Console.WriteLine("{0} Brand is Updated with EF!", entity.ColorID);
+            return new SuccessResult();
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
 
-        public Color GetById(int colorID)
+        public IDataResult<Color> GetById(int colorID)
         {
-            return _colorDal.Get(p => p.ColorID == colorID);
+            return new SuccessDataResult<Color>(_colorDal.Get(p => p.ColorID == colorID));
         }
     }
 }

@@ -56,11 +56,14 @@ namespace ConsoleUI
             //brandManager.Add(brand4);
             //brandManager.Add(brand5);
 
-            foreach (var item in carManager.GetByCarDetails())
+            foreach (var item in carManager.GetByCarDetails().Data)
             {
+                
                 Console.WriteLine("ID: {0} , Model Year : {1} , Brand : {2} , Color : {3} , Price : {4} ",item.CarID,item.ModelYear,
                     item.BrandName,item.ColorName,item.DailyPrice);
             }
+
+            
 
 
 

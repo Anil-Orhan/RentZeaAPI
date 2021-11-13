@@ -7,6 +7,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Utilities.Results;
+using Core.Utilities.Results.Abstract;
 using Entities.DTOs;
 
 namespace Business.Concrete
@@ -19,57 +21,68 @@ namespace Business.Concrete
             _ICarDal = ICarDal;
             
         }
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if(car.DailyPrice > 0)
             {
                 if (car.CarID != null) 
                 {
+
                     _ICarDal.Add(car);
+                    return new SuccessResult();
                     Console.WriteLine("{0} Car Added with EF!", car.CarID);
                 }
                 else
                 {
+                    return new ErrorResult();
                     Console.WriteLine("The ID value is defined automatically. Please delete the ID value!");
                 }
                 
             }
             else
             {
+                return new ErrorResult();
                 Console.WriteLine("Price must be greater than 0!");
+               
             }
             
         }
 
-        public void Delete(Car car)
+        public IDataResult<Car> Delete(Car car)
         {
+
             _ICarDal.Delete(car);
             Console.WriteLine("{0} Car Deleted with EF!", car.CarID);
+            return new SuccessDataResult<Car>(car, "Deleted!");
+
         }
 
        
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-           return _ICarDal.GetAll();
+
+            return new SuccessDataResult<List<Car>>(_ICarDal.GetAll(),"Data Listed!");
         }
 
-        public Car GetById(int id)
+        public IDataResult<Car> GetById(int id)
         {
-            return _ICarDal.Get(p=>p.CarID == id);
+            ;
+            return new SuccessDataResult<Car>(_ICarDal.Get(p => p.CarID == id));
 
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
-            _ICarDal.Update(car);
+            ;
             Console.WriteLine("{0} Car Updated with EF!", car.CarID);
+            return new SuccessDataResult<Car>();
         }
 
-        public List<CarDetailDto> GetByCarDetails()
+        public IDataResult<List<CarDetailDto>> GetByCarDetails()
         {
-
-            return _ICarDal.GetByCarDetail();
+            
+            return new SuccessDataResult<List<CarDetailDto>>(_ICarDal.GetByCarDetail());
         }
     }
 }

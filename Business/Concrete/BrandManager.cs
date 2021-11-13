@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Core.Utilities.Results;
+using Core.Utilities.Results.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -17,32 +19,35 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
-        public void Add(Brand entity)
+        public IResult Add(Brand entity)
         {
             _brandDal.Add(entity);
             Console.WriteLine("{0} Brand is Added with EF!", entity.BrandID);
+            return new SuccessResult();
         }
 
-        public void Delete(Brand entity)
+        public IDataResult<Brand> Delete(Brand entity)
         {
             _brandDal.Delete(entity);
             Console.WriteLine("{0} Brand is Deleted with EF!", entity.BrandID);
+            return new SuccessDataResult<Brand>();
         }
 
-        public void Update(Brand entity)
+        public IResult Update(Brand entity)
         {
             _brandDal.Update(entity);
             Console.WriteLine("{0} Brand is Updated with EF!", entity.BrandID);
+            return new SuccessResult();
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccessDataResult <List<Brand>>(_brandDal.GetAll());
         }
 
-        public Brand GetById(int brandID)
+        public IDataResult<Brand> GetById(int brandID)
         {
-            return _brandDal.Get(p => p.BrandID == brandID);
+            return new SuccessDataResult<Brand>(_brandDal.Get(p => p.BrandID == brandID));
         }
     }
 }
