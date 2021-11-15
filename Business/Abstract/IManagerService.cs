@@ -12,9 +12,9 @@ namespace Business.Abstract
    public interface IManagerService<T> where T: class,new()
     {
         IResult Add(T entity);
-        IDataResult<T> Delete(T entity);
-        IResult Update(T entity);
-        IDataResult<List<T>> GetAll();
-        IDataResult<T> GetById(int i);
+        DataResult<T> Delete(T entity);
+        DataResult<T> Update(T entity);
+        DataResult<List<T>> GetAll();
+        DataResult<T> GetById(int i);
     }
 }

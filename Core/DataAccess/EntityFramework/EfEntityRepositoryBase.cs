@@ -18,8 +18,8 @@ namespace Core.Concrete
         {
             using (TContext context = new TContext())
             {
-                var addedBrand = context.Entry(entity); //eşle
-                addedBrand.State = EntityState.Added;//ekle
+                var addedEntry = context.Entry(entity); //eşle
+                addedEntry.State = EntityState.Added;//ekle
                 context.SaveChanges();//kaydet
               
             }

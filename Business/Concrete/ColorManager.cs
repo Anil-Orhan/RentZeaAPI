@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Core.Utilities;
 using Core.Utilities.Results;
 using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
@@ -23,29 +24,29 @@ namespace Business.Concrete
         {
             _colorDal.Add(entity);
             Console.WriteLine("{0} Color is Added with EF!", entity.ColorID);
-            return new SuccessResult();
+            return new SuccessResult(Messages.Added);
         }
 
-        public IDataResult<Color> Delete(Color entity)
+        public DataResult<Color> Delete(Color entity)
         {
             _colorDal.Delete(entity);
             Console.WriteLine("{0} Brand is Deleted with EF!", entity.ColorID);
-            return new SuccessDataResult<Color>();
+            return new SuccessDataResult<Color>(Messages.Deleted);
         }
 
-        public IResult Update(Color entity)
+        public DataResult<Color> Update(Color entity)
         {
             _colorDal.Update(entity);
             Console.WriteLine("{0} Brand is Updated with EF!", entity.ColorID);
-            return new SuccessResult();
+            return new SuccessDataResult<Color>(Messages.Updated);
         }
 
-        public IDataResult<List<Color>> GetAll()
+        public DataResult<List<Color>> GetAll()
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.Listed);
         }
 
-        public IDataResult<Color> GetById(int colorID)
+        public DataResult<Color> GetById(int colorID)
         {
             return new SuccessDataResult<Color>(_colorDal.Get(p => p.ColorID == colorID));
         }

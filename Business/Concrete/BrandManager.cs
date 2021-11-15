@@ -26,26 +26,26 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<Brand> Delete(Brand entity)
+        public DataResult<Brand> Delete(Brand entity)
         {
             _brandDal.Delete(entity);
             Console.WriteLine("{0} Brand is Deleted with EF!", entity.BrandID);
             return new SuccessDataResult<Brand>();
         }
 
-        public IResult Update(Brand entity)
+        public DataResult<Brand> Update(Brand entity)
         {
-            _brandDal.Update(entity);
+            
             Console.WriteLine("{0} Brand is Updated with EF!", entity.BrandID);
-            return new SuccessResult();
+            return new SuccessDataResult<Brand>();
         }
 
-        public IDataResult<List<Brand>> GetAll()
+        public DataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult <List<Brand>>(_brandDal.GetAll());
         }
 
-        public IDataResult<Brand> GetById(int brandID)
+        public DataResult<Brand> GetById(int brandID)
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(p => p.BrandID == brandID));
         }
