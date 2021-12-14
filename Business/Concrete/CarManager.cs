@@ -11,6 +11,10 @@ using Core.Utilities;
 using Core.Utilities.Results;
 using Core.Utilities.Results.Abstract;
 using Entities.DTOs;
+using FluentValidation;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -22,30 +26,18 @@ namespace Business.Concrete
             _ICarDal = ICarDal;
             
         }
+
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if(car.DailyPrice > 0)
-            {
-                if (car.CarID == null) 
-                {
 
-                    _ICarDal.Add(car);
-                    return new SuccessResult(Messages.carAdded);
-                    Console.WriteLine("{0} Car Added with EF!", car.CarID);
-                }
-                else
-                {
-                    return new ErrorResult(Messages.IdError);
-                    Console.WriteLine(Messages.IdError);
-                }
-                
-            }
-            else
-            {
-                return new ErrorResult(Messages.carPriceError);
-                Console.WriteLine(Messages.carPriceError);
+            ValidationTool.Validate(new CarValidator(),car);
+
+            _ICarDal.Add(car);
+            return new SuccessResult(Messages.carAdded);
+            Console.WriteLine("{0} Car Added with EF!", car.CarID);
                
-            }
+               
             
         }
 
@@ -71,7 +63,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<Car>(result, "Data is Null");
             }
-            return new SuccessDataResult<Car>(Messages.carById);
+            return new SuccessDataResult<Car>(result,Messages.carById);
 
         }
 
