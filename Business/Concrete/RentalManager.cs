@@ -9,6 +9,7 @@ using Core.Utilities.Results;
 using Core.Utilities.Results.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -23,7 +24,7 @@ namespace Business.Concrete
         public IResult Add(Rental entity)
         {
             
-            if (entity.ReturnDate==null)
+            if (entity.ReturnDate.Equals(""))
             {
                 _rentalDal.Add(entity);
                 return new SuccessResult(Messages.Added);
@@ -50,11 +51,18 @@ namespace Business.Concrete
         public DataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.Listed);
+
         }
 
         public DataResult<Rental> GetById(int i)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(p => p.RentalID == i));
+        }
+
+        public DataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetail(), Messages.carDetail);
         }
     }
 }

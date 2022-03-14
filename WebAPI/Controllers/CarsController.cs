@@ -49,6 +49,30 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getbybrand")]
+        public IActionResult GetByBrand(int brandID)
+        {
+            var result = _carManager.GetByBrand(brandID);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbycolor")]
+        public IActionResult GetByColor(int colorID)
+        {
+            var result = _carManager.GetByColor(colorID);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {
@@ -81,7 +105,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("getdetails")]
+        [HttpGet("getdetails")]
         public IActionResult GetDetails()
         {
             var result = _carManager.GetByCarDetails();
@@ -91,6 +115,18 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getdetail")]
+        public IActionResult GetDetail(int carID)
+        {
+            var result = _carManager.GetByCarDetail(carID);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
 
     }
 }

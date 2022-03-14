@@ -4,7 +4,8 @@ using Business.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
-
+using Entities.DTOs;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -28,22 +29,38 @@ namespace ConsoleUI
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
 
+            foreach (var item in carDetail())
+            {
+                Console.WriteLine(item.BrandName);
+                Console.WriteLine(item.ColorName);
 
-            rentalManager.Add(new Rental {CarID = 45,CustomerID = 7,RentDate = DateTime.Now,ReturnDate = DateTime.Parse("2021.11.18")});
-
-
-
-
-
-
-
+            }
+            
 
 
 
 
 
+        }
 
 
+        public static List<CarDetailDto> carDetail() 
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            var car = carManager.GetAll();
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            List<CarDetailDto> resultList = new List<CarDetailDto>();
+            foreach (var item in car.Data)
+            {
+                var color = colorManager.GetById(item.ColorID);
+                var brand = brandManager.GetById(item.BrandID);
+                CarDetailDto detail = new CarDetailDto { CarID = item.CarID, DailyPrice = item.DailyPrice, ModelYear = item.ModelYear, BrandName = brand.Data.BrandName, ColorName = color.Data.ColorName };
+                resultList.Add(detail);
+            }
+          
+
+            return resultList;
         }
     }
 }

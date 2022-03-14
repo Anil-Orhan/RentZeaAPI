@@ -35,7 +35,7 @@ namespace Business.Concrete
 
             _ICarDal.Add(car);
             return new SuccessResult(Messages.carAdded);
-            Console.WriteLine("{0} Car Added with EF!", car.CarID);
+           
                
                
             
@@ -58,6 +58,7 @@ namespace Business.Concrete
 
         public DataResult<Car> GetById(int id)
         {
+           
             var result = _ICarDal.Get(p => p.CarID == id);
             if (result==null)
             {
@@ -78,6 +79,34 @@ namespace Business.Concrete
         {
             
             return new SuccessDataResult<List<CarDetailDto>>(_ICarDal.GetByCarDetail(),Messages.carDetail);
+        }
+
+      
+
+        public DataResult<CarDetailDto> GetByCarDetail(int carID)
+        {
+            return new SuccessDataResult<CarDetailDto>(_ICarDal.GetByCarDetailSingle(carID), Messages.carDetail);
+        }
+
+        public DataResult<List<CarDetailDto>> GetByBrand(int brandID)
+        {
+
+            var result = _ICarDal.GetByBrand(brandID);
+            if (result == null)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(result, "Data is Null");
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(result, Messages.carById);
+        }
+        public DataResult<List<CarDetailDto>> GetByColor(int colorID)
+        {
+
+            var result = _ICarDal.GetByColor(colorID);
+            if (result == null)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(result, "Data is Null");
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(result, Messages.carById);
         }
     }
 }
