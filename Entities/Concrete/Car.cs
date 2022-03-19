@@ -26,7 +26,8 @@ namespace Entities.Concrete
         public short MinDriverAge { get; set; }
         public short MinDrivingLicence { get; set; }
         public short DepositFee { get; set; }
-        public string CarModel { get; set; }    
+        public string CarModel { get; set; }
+        public short CarRate { get; set; }    
 
     }
 }
